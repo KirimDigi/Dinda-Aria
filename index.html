@@ -1445,9 +1445,11 @@ document.querySelector('.wdp-button-wrapper button').addEventListener('click',fu
 })
 </script>
 <script>
-//Script Custom Nama Tamu by Andy dari WeddingPress
+//Script Custom Nama Tamu by Andy dari WeddingPress (Updated to support Query and Hash params)
   var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams) {
+  var hashParams = new URLSearchParams(window.location.hash.substring(1));
+  
+  if (urlParams || hashParams) {
     var textElement = document.getElementById('namatamu');
     var defaultText = textElement.innerHTML;
     var newText = defaultText;
@@ -1461,19 +1463,29 @@ document.querySelector('.wdp-button-wrapper button').addEventListener('click',fu
       return val;
     }
 
-    if (urlParams.has('to')) {
-      var toValue = cleanGuestName(urlParams.get('to'));
-      newText = newText.replace(/Tamu Undangan/g, toValue);
+    function getParam(name) {
+      if (urlParams && urlParams.has(name)) {
+        return urlParams.get(name);
+      }
+      if (hashParams && hashParams.has(name)) {
+        return hashParams.get(name);
+      }
+      return null;
     }
 
-    if (urlParams.has('dear')) {
-      var dearValue = cleanGuestName(urlParams.get('dear'));
-      newText = newText.replace(/Tamu Undangan/g, dearValue);
+    var toValue = getParam('to');
+    if (toValue) {
+      newText = newText.replace(/Tamu Undangan/g, cleanGuestName(toValue));
     }
 
-    if (urlParams.has('kepada')) {
-      var kepadaValue = cleanGuestName(urlParams.get('kepada'));
-      newText = newText.replace(/Tamu Undangan/g, kepadaValue);
+    var dearValue = getParam('dear');
+    if (dearValue) {
+      newText = newText.replace(/Tamu Undangan/g, cleanGuestName(dearValue));
+    }
+
+    var kepadaValue = getParam('kepada');
+    if (kepadaValue) {
+      newText = newText.replace(/Tamu Undangan/g, cleanGuestName(kepadaValue));
     }
 
     textElement.innerHTML = newText;
