@@ -529,7 +529,7 @@ fbq('init', '1380840439802436', {}, {
 				</div>
 				<div class="elementor-element elementor-element-718931cd animated-slow elementor-invisible elementor-widget elementor-widget-heading" data-id="718931cd" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Putri Keempat dari Bapak Endang Suryana dan Ibu Teti Hatyamah</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Putri Keempat dari Almarhum Bapak Endang Suryana dan Almarhum Ibu Teti Hatyamah</p>				</div>
 				</div>
 		<div class="has_eae_slider elementor-element elementor-element-8b0646e e-con-full e-flex elementor-invisible e-con e-child" data-eae-slider="11939" data-id="8b0646e" data-element_type="container" data-e-type="container" data-settings="{&quot;jet_parallax_layout_list&quot;:[],&quot;animation&quot;:&quot;fadeInUp&quot;}">
 				<div class="elementor-element elementor-element-8154152 elementor-align-center jedv-enabled--yes elementor-mobile-align-center animated-slow elementor-invisible elementor-widget elementor-widget-button" data-id="8154152" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;zoomIn&quot;}" data-widget_type="button.default">
@@ -574,7 +574,7 @@ fbq('init', '1380840439802436', {}, {
 				</div>
 				<div class="elementor-element elementor-element-4f4f517e animated-slow elementor-invisible elementor-widget elementor-widget-heading" data-id="4f4f517e" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<p class="elementor-heading-title elementor-size-default">Putra dari Bapak Asep dan Ibu Rika</p>				</div>
+					<p class="elementor-heading-title elementor-size-default">Putra Pertama dari Bapak Asep Suherman dan Ibu Rika Rahmawati</p>				</div>
 				</div>
 		<div class="has_eae_slider elementor-element elementor-element-959fb14 e-con-full jedv-enabled--yes e-flex e-con e-child" data-eae-slider="35872" data-id="959fb14" data-element_type="container" data-e-type="container" data-settings="{&quot;jet_parallax_layout_list&quot;:[]}">
 				<div class="elementor-element elementor-element-121921b elementor-align-center jedv-enabled--yes elementor-mobile-align-center animated-slow elementor-invisible elementor-widget elementor-widget-button" data-id="121921b" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;zoomIn&quot;}" data-widget_type="button.default">
@@ -1526,10 +1526,17 @@ function enableScrolling(){
 function playAudio(){
   var isYT = false;
   if(document.body.contains(document.getElementById("song"))) {
-    document.getElementById("song").play();
+    var song = document.getElementById("song");
+    if(song.currentTime === 0 || song.currentTime < 6) {
+      song.currentTime = 6;
+    }
+    song.play();
     isYT = false;
   } else {
     isYT = true;
+    if (typeof player !== 'undefined' && player && typeof player.seekTo === 'function') {
+      player.seekTo(6);
+    }
     player.playVideo();
   }
 }
